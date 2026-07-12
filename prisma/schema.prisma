@@ -1,0 +1,121 @@
+// Wealth Ledger - Financial Freedom Tracker (v2 with multi-currency, accounts, invoices, contacts)
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// =====================================================
+// ACCOUNT — Bank / E-Wallet / Cash / Crypto wallet
+// =====================================================
+model Account {
+  id          String   @id @default(cuid())
+  name        String   // e.g. "BCA Personal", "Wise USD", "Cash"
+  currency    String   @default("IDR") // ISO 4217 code
+  type        String   // "BANK" | "EWALLET" | "CASH" | "CRYPTO" | "INVESTMENT"
+  initialBalance Float @default(0) // starting balance when added
+  notes       String?
+  archivedAt  DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  transactions Transaction[]
+  invoices     Invoice[]
+}
+
+// =====================================================
+// CONTACT — Client / Vendor / Both
+// =====================================================
+model Contact {
+  id          String   @id @default(cuid())
+  name        String   // Company or person name
+  type        String   // "CLIENT" | "VENDOR" | "BOTH"
+  email       String?
+  phone       String?
+  country     String?  // "ID", "US", "SG" — for international context
+  notes       String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  transactions Transaction[]
+  invoices     Invoice[]
+}
+
+// =====================================================
+// TRANSACTION — Income / Expense (with multi-currency + account + contact)
+// =====================================================
+model Transaction {
+  id              String   @id @default(cuid())
+  type            String   // "INCOME" | "EXPENSE"
+  source          String   // e.g. "Revenue Bisnis Utama", "Beli Mobil"
+  category        String   // e.g. "Bisnis", "Properti", "Transport"
+  incomeType      String?  // For INCOME: "AKTIF" | "PASIF"
+
+  // Multi-currency support
+  currency        String   @default("IDR") // ISO 4217 code of original amount
+  amountOriginal  Float    // Original amount in transaction currency
+  exchangeRate    Float    @default(1) // rate to base currency (IDR). 1 IDR = 1 IDR
+  amountBase      Float    // amount in base currency (IDR) = amountOriginal * exchangeRate
+
+  date            DateTime
+  note            String?
+
+  // Relationships
+  accountId       String?
+  account         Account? @relation(fields: [accountId], references: [id])
+  contactId       String?
+  contact         Contact? @relation(fields: [contactId], references: [id])
+  invoiceId       String?  // if this transaction is paying/receiving for an invoice
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  deletedAt       DateTime?
+
+  @@index([type, date])
+  @@index([deletedAt])
+  @@index([accountId])
+  @@index([contactId])
+  @@index([currency])
+}
+
+// =====================================================
+// INVOICE — Receivable tracking
+// =====================================================
+model Invoice {
+  id              String   @id @default(cuid())
+  number          String   @unique // e.g. "INV-2026-001"
+  contactId       String?
+  contact         Contact? @relation(fields: [contactId], references: [id])
+  accountId       String?  // which account should receive payment
+  account         Account? @relation(fields: [accountId], references: [id])
+
+  // What's being invoiced
+  title           String   // e.g. "SaaS Subscription Q2", "Consulting March 2026"
+  currency        String   @default("IDR")
+  amountOriginal  Float    // invoice amount in its currency
+  exchangeRate    Float    @default(1)
+  amountBase      Float    // converted to IDR
+
+  // Dates
+  issueDate       DateTime
+  dueDate         DateTime
+
+  // Status workflow
+  status          String   @default("DRAFT") // DRAFT | SENT | PARTIAL | PAID | OVERDUE | CANCELLED
+  paidAmountBase  Float    @default(0) // amount paid so far in IDR
+  notes           String?
+
+  // Linked transaction (created when marked as paid)
+  transactionId   String?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  deletedAt       DateTime?
+
+  @@index([status, dueDate])
+  @@index([contactId])
+  @@index([deletedAt])
+}
