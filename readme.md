@@ -2,7 +2,7 @@
 
 A personal finance dashboard for tracking income, expenses, invoices, and multi-currency accounts in real time.
 
-## Screenshoots
+## Screenshots
 
 ![Dashboard](public/screenshots/Dashboard.png)
 ![Invoice Management](public/screenshots/Invoice.png)
