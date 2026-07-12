@@ -1,4 +1,3 @@
-// Wealth Ledger - Financial Freedom Tracker (v2 with multi-currency, accounts, invoices, contacts)
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,14 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// =====================================================
-// ACCOUNT — Bank / E-Wallet / Cash / Crypto wallet
-// =====================================================
+// Account — Bank / E-Wallet / Cash / Crypto wallet
 model Account {
   id          String   @id @default(cuid())
-  name        String   // e.g. "BCA Personal", "Wise USD", "Cash"
+  name        String   // e.g. "BCA", "Wise", "Cash"
   currency    String   @default("IDR") // ISO 4217 code
-  type        String   // "BANK" | "EWALLET" | "CASH" | "CRYPTO" | "INVESTMENT"
+  type        String   // "Bank" | "E-Wallet" | "Cash" | "Crypto" | "Investment"
   initialBalance Float @default(0) // starting balance when added
   notes       String?
   archivedAt  DateTime?
@@ -26,13 +23,11 @@ model Account {
   invoices     Invoice[]
 }
 
-// =====================================================
-// CONTACT — Client / Vendor / Both
-// =====================================================
+// Client / Vendor / Both
 model Contact {
   id          String   @id @default(cuid())
   name        String   // Company or person name
-  type        String   // "CLIENT" | "VENDOR" | "BOTH"
+  type        String   // "Client" | "Vendor" | "Both"
   email       String?
   phone       String?
   country     String?  // "ID", "US", "SG" — for international context
@@ -44,15 +39,13 @@ model Contact {
   invoices     Invoice[]
 }
 
-// =====================================================
-// TRANSACTION — Income / Expense (with multi-currency + account + contact)
-// =====================================================
+// Income / Expense (with multi-currency + account + contact)
 model Transaction {
   id              String   @id @default(cuid())
-  type            String   // "INCOME" | "EXPENSE"
-  source          String   // e.g. "Revenue Bisnis Utama", "Beli Mobil"
-  category        String   // e.g. "Bisnis", "Properti", "Transport"
-  incomeType      String?  // For INCOME: "AKTIF" | "PASIF"
+  type            String   // "Income" | "Expense"
+  source          String   // e.g. "Revenue Main Bussiness"
+  category        String   // e.g. "Bussiness", "Property", "Transport"
+  incomeType      String?  // For Income: "Active" | "Passive"
 
   // Multi-currency support
   currency        String   @default("IDR") // ISO 4217 code of original amount
@@ -81,9 +74,7 @@ model Transaction {
   @@index([currency])
 }
 
-// =====================================================
-// INVOICE — Receivable tracking
-// =====================================================
+// Receivable tracking
 model Invoice {
   id              String   @id @default(cuid())
   number          String   @unique // e.g. "INV-2026-001"
@@ -93,7 +84,7 @@ model Invoice {
   account         Account? @relation(fields: [accountId], references: [id])
 
   // What's being invoiced
-  title           String   // e.g. "SaaS Subscription Q2", "Consulting March 2026"
+  title           String   // e.g. "Consulting March 2026"
   currency        String   @default("IDR")
   amountOriginal  Float    // invoice amount in its currency
   exchangeRate    Float    @default(1)
