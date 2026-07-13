@@ -4,13 +4,35 @@ A personal finance dashboard for tracking income, expenses, invoices, and multi-
 
 ## Screenshots
 
-![Dashboard](public/screenshots/Dashboard.png)
-![Invoice Management](public/screenshots/Invoice.png)
-![Account Management](public/screenshots/Account.png)
-![Balance Sheet](public/screenshots/Balance-Sheet.png)
-![Contact Person](public/screenshots/Contact.png)
-![Trash Management](public/screenshots/Trash.png)
+### Dashboard
 
+Main dashboard showing income, expenses, and cash flow overview
+![Dashboard](public/screenshots/Dashboard.png)
+
+### Invoice
+
+Invoice creation and status tracking
+![Invoice Management](public/screenshots/Invoice.png)
+
+### Account
+
+Manage multiple bank accounts, e-wallets, and crypto wallets
+![Account Management](public/screenshots/Account.png)
+
+### Balance Sheet
+
+Balance sheet view with savings rate and financial status
+![Balance Sheet](public/screenshots/Balance-Sheet.png)
+
+### Client and Vendor
+
+Client and vendor contact management
+![Contact Person](public/screenshots/Contact.png)
+
+### Trash Management
+
+Soft-delete system with restore functionality
+![Trash Management](public/screenshots/Trash.png)
 
 ## Features
 
