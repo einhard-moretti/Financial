@@ -146,7 +146,7 @@ export default function Home() {
             <div className="hidden sm:flex items-center gap-4 text-[11px] text-muted-foreground">
               <span className="flex items-center gap-1">
                 <Database className="h-3 w-3" />
-                SQLite
+                PostgreSQL
               </span>
               <span className="flex items-center gap-1">
                 <Clock className="h-3 w-3" />
