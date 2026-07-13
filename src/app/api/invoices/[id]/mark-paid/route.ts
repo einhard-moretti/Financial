@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
-// =====================================================
 // POST /api/invoices/[id]/mark-paid
 // Marks invoice as PAID and auto-creates an INCOME transaction linked to it
-// =====================================================
 export async function POST(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
@@ -36,14 +34,14 @@ export async function POST(req: NextRequest, { params }: { params: Promise<{ id:
       data: {
         type: "INCOME",
         source: `Invoice ${invoice.number} — ${invoice.title}`,
-        category: "Bisnis Utama", // default; user can edit later
-        incomeType: "AKTIF",
+        category: "Core Bussiness", // default; user can edit later
+        incomeType: "ACTIVE",
         currency: invoice.currency,
         amountOriginal: receivedAmount,
         exchangeRate: receivedExchangeRate,
         amountBase: receivedAmountBase,
         date: paidDate,
-        note: `Pembayaran untuk invoice ${invoice.number}${invoice.contact ? ` dari ${invoice.contact.name}` : ""}`,
+        note: `Payment for invoice ${invoice.number}${invoice.contact ? ` from ${invoice.contact.name}` : ""}`,
         accountId: invoice.accountId,
         contactId: invoice.contactId,
         invoiceId: invoice.id,

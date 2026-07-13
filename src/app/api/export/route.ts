@@ -76,8 +76,8 @@ export async function GET(req: NextRequest) {
     const csv = [headers.join(","), ...rows].join("\n");
 
     const filename = monthKey
-      ? `wealth-ledger-${monthKey}.csv`
-      : `wealth-ledger-all-${new Date().toISOString().split("T")[0]}.csv`;
+      ? `einhard-financial-${monthKey}.csv`
+      : `einhard-financial-all-${new Date().toISOString().split("T")[0]}.csv`;
 
     return new NextResponse(csv, {
       status: 200,

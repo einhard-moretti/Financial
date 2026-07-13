@@ -43,47 +43,40 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* =====================================================
-   WEALTH LEDGER — Premium Dark Theme (Pure Black + Gold)
-   ===================================================== */
 :root {
   --radius: 0.75rem;
 
-  /* Pure black canvas (Bloomberg / Linear / Vercel vibe) */
-  --background: oklch(0.07 0.005 270);          /* #0a0a0b — pure near-black */
-  --foreground: oklch(0.98 0.005 90);            /* near white with warm tint */
+  --background: oklch(0.07 0.005 270);
+  --foreground: oklch(0.98 0.005 90);
 
-  /* Card: slightly lighter than bg, with subtle warm tint */
-  --card: oklch(0.11 0.005 270);                 /* #131316 */
+  --card: oklch(0.11 0.005 270);
   --card-foreground: oklch(0.98 0.005 90);
 
   --popover: oklch(0.13 0.005 270);
   --popover-foreground: oklch(0.98 0.005 90);
 
-  /* Primary = gold (old money accent) */
-  --primary: oklch(0.82 0.15 75);                /* amber-300 gold */
+  --primary: oklch(0.82 0.15 75);
   --primary-foreground: oklch(0.13 0.005 270);
 
   --secondary: oklch(0.16 0.005 270);
   --secondary-foreground: oklch(0.95 0.005 90);
 
   --muted: oklch(0.16 0.005 270);
-  --muted-foreground: oklch(0.62 0.01 270);      /* dim text */
+  --muted-foreground: oklch(0.62 0.01 270);
 
   --accent: oklch(0.18 0.01 270);
   --accent-foreground: oklch(0.98 0.005 90);
 
-  --destructive: oklch(0.62 0.22 25);            /* red-500 */
-  --border: oklch(0.22 0.005 270);               /* subtle dark border */
+  --destructive: oklch(0.62 0.22 25);
+  --border: oklch(0.22 0.005 270);
   --input: oklch(0.18 0.005 270);
-  --ring: oklch(0.82 0.15 75);                   /* gold ring */
+  --ring: oklch(0.82 0.15 75);
 
-  /* Chart colors — financial dashboard palette */
-  --chart-1: oklch(0.82 0.15 75);                /* gold — primary */
-  --chart-2: oklch(0.70 0.18 145);               /* emerald — income */
-  --chart-3: oklch(0.65 0.22 25);                /* red — expense */
-  --chart-4: oklch(0.65 0.15 230);               /* sky — passive */
-  --chart-5: oklch(0.55 0.20 295);               /* violet — savings */
+  --chart-1: oklch(0.82 0.15 75);
+  --chart-2: oklch(0.70 0.18 145);   
+  --chart-3: oklch(0.65 0.22 25); 
+  --chart-4: oklch(0.65 0.15 230);
+  --chart-5: oklch(0.55 0.20 295);   
 
   --sidebar: oklch(0.09 0.005 270);
   --sidebar-foreground: oklch(0.98 0.005 90);
@@ -96,7 +89,6 @@
 }
 
 .dark {
-  /* Same as :root — this app is dark-only by design */
   --background: oklch(0.07 0.005 270);
   --foreground: oklch(0.98 0.005 90);
   --card: oklch(0.11 0.005 270);
@@ -139,9 +131,8 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: "ss01", "cv11", "tnum"; /* tabular numbers for finance */
+    font-feature-settings: "ss01", "cv11", "tnum";
   }
-  /* Custom scrollbar — slim and elegant */
   ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -158,9 +149,6 @@
   }
 }
 
-/* =====================================================
-   Premium utility classes
-   ===================================================== */
 @layer utilities {
   .text-gold {
     color: oklch(0.82 0.15 75);

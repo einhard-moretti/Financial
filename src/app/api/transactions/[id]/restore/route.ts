@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
-// =====================================================
 // POST /api/transactions/[id]/restore — Restore from trash
-// =====================================================
 export async function POST(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> }

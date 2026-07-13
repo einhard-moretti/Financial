@@ -279,9 +279,7 @@ export function ContactManager() {
   );
 }
 
-// =====================================================
 // Contact Form
-// =====================================================
 function ContactForm({
   open,
   onOpenChange,

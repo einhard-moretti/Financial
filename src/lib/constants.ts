@@ -1,6 +1,3 @@
-// =====================================================
-// Wealth Ledger — Constants & Types (v2: multi-currency, accounts, invoices, contacts)
-// =====================================================
 
 export type TransactionType = "INCOME" | "EXPENSE";
 export type IncomeType = "AKTIF" | "PASIF";
@@ -8,9 +5,7 @@ export type AccountType = "BANK" | "EWALLET" | "CASH" | "CRYPTO" | "INVESTMENT";
 export type ContactType = "CLIENT" | "VENDOR" | "BOTH";
 export type InvoiceStatus = "DRAFT" | "SENT" | "PARTIAL" | "PAID" | "OVERDUE" | "CANCELLED";
 
-// =====================================================
 // CURRENCIES — supported list
-// =====================================================
 export interface Currency {
   code: string;
   name: string;
@@ -38,9 +33,8 @@ export const CURRENCY_MAP: Record<string, Currency> = Object.fromEntries(
 
 export const BASE_CURRENCY = "IDR"; // Everything converted to IDR for summary
 
-// =====================================================
 // ACCOUNT TYPES
-// =====================================================
+
 export const ACCOUNT_TYPES: { value: AccountType; label: string; icon: string }[] = [
   { value: "BANK", label: "Bank Account", icon: "🏦" },
   { value: "EWALLET", label: "E-Wallet / Fintech", icon: "📱" },
@@ -49,13 +43,12 @@ export const ACCOUNT_TYPES: { value: AccountType; label: string; icon: string }[
   { value: "INVESTMENT", label: "Investment / Brokerage", icon: "📈" },
 ];
 
-// =====================================================
 // INVOICE STATUSES
-// =====================================================
+
 export const INVOICE_STATUSES: {
   value: InvoiceStatus;
   label: string;
-  color: string; // tailwind class
+  color: string;
   badgeClass: string;
 }[] = [
   { value: "DRAFT", label: "Draft", color: "text-muted-foreground", badgeClass: "border-border bg-muted/30 text-muted-foreground" },
@@ -69,9 +62,8 @@ export const INVOICE_STATUSES: {
 export const INVOICE_STATUS_MAP: Record<InvoiceStatus, typeof INVOICE_STATUSES[0]> =
   Object.fromEntries(INVOICE_STATUSES.map((s) => [s.value, s])) as Record<InvoiceStatus, typeof INVOICE_STATUSES[0]>;
 
-// =====================================================
 // CATEGORIES — Pre-defined list
-// =====================================================
+
 export const INCOME_CATEGORIES: { value: string; label: string; incomeType: IncomeType }[] = [
   { value: "Gaji", label: "Salary / Commission", incomeType: "AKTIF" },
   { value: "Bisnis Utama", label: "Main Business Revenue", incomeType: "AKTIF" },
@@ -101,9 +93,7 @@ export const EXPENSE_CATEGORIES: { value: string; label: string }[] = [
   { value: "Akuisisi Aset", label: "Asset Acquisition (Property, Equipment)" },
 ];
 
-// =====================================================
 // TYPES
-// =====================================================
 export interface Account {
   id: string;
   name: string;
@@ -114,7 +104,6 @@ export interface Account {
   archivedAt: string | null;
   createdAt: string;
   updatedAt: string;
-  // Computed: currentBalance (initial + sum of transactions)
   currentBalance?: number;
   currentBalanceBase?: number;
 }
@@ -215,9 +204,7 @@ export interface Summary {
   expenseCount: number;
   topIncomeSource: { source: string; amount: number } | null;
   topExpenseCategory: { category: string; amount: number } | null;
-  // Multi-currency breakdown
   byCurrency: { currency: string; income: number; expense: number }[];
-  // By account
   byAccount: { accountId: string; accountName: string; currency: string; balance: number }[];
 }
 
@@ -229,9 +216,7 @@ export interface TrendPoint {
   net: number;
 }
 
-// =====================================================
 // FORMATTERS
-// =====================================================
 
 export function formatCurrency(amount: number, currency: string = "IDR", opts?: { compact?: boolean; sign?: boolean }): string {
   const cur = CURRENCY_MAP[currency] || CURRENCY_MAP.IDR;
@@ -330,9 +315,8 @@ export function generateInvoiceNumber(existing: string[]): string {
   return `${prefix}${String(next).padStart(3, "0")}`;
 }
 
-// =====================================================
 // VALIDATION
-// =====================================================
+
 export function validateTransactionInput(input: Partial<TransactionInput>): string[] {
   const errors: string[] = [];
   if (!input.type || !["INCOME", "EXPENSE"].includes(input.type)) {

@@ -15,9 +15,7 @@ import {
 } from "@/lib/constants";
 import { toast } from "sonner";
 
-// =====================================================
 // Query Keys
-// =====================================================
 export const queryKeys = {
   transactions: (params: { monthKey?: string; type?: string; search?: string; includeDeleted?: boolean; accountId?: string }) =>
     ["transactions", params] as const,
@@ -43,10 +41,7 @@ async function fetchJSON<T>(url: string, options?: RequestInit): Promise<T> {
   return data.data as T;
 }
 
-// =====================================================
 // TRANSACTIONS
-// =====================================================
-
 export function useTransactions(params: {
   monthKey?: string;
   type?: string;
@@ -167,10 +162,7 @@ export function usePermanentDeleteTransaction() {
   });
 }
 
-// =====================================================
 // ACCOUNTS
-// =====================================================
-
 export function useAccounts(includeArchived: boolean = false) {
   return useQuery({
     queryKey: queryKeys.accounts(includeArchived),
@@ -220,10 +212,7 @@ export function useArchiveAccount() {
   });
 }
 
-// =====================================================
 // CONTACTS
-// =====================================================
-
 export function useContacts(type?: ContactType) {
   const qs = type ? `?type=${type}` : "";
   return useQuery({
@@ -271,10 +260,7 @@ export function useDeleteContact() {
   });
 }
 
-// =====================================================
 // INVOICES
-// =====================================================
-
 export function useInvoices(status?: string) {
   const qs = status ? `?status=${status}` : "";
   return useQuery({

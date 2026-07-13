@@ -1,9 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 
-// =====================================================
 // DELETE /api/transactions/[id]/permanent — Permanent delete (no recovery)
-// =====================================================
 export async function DELETE(
   _req: NextRequest,
   { params }: { params: Promise<{ id: string }> }

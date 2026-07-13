@@ -2,9 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { AccountType, CURRENCY_MAP } from "@/lib/constants";
 
-// =====================================================
 // GET /api/accounts — list all (with computed balances)
-// =====================================================
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
@@ -54,9 +52,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// =====================================================
 // POST /api/accounts — create new account
-// =====================================================
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();

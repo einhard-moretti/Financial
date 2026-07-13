@@ -242,9 +242,7 @@ export function AccountManager() {
   );
 }
 
-// =====================================================
 // Account Form (Add/Edit)
-// =====================================================
 function AccountForm({
   open,
   onOpenChange,

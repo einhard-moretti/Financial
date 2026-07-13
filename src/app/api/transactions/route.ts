@@ -7,10 +7,8 @@ import {
   CURRENCY_MAP,
 } from "@/lib/constants";
 
-// =====================================================
 // GET /api/transactions
 // Query: type, monthKey, fromDate, toDate, search, includeDeleted, accountId, contactId, currency
-// =====================================================
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
@@ -77,9 +75,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// =====================================================
 // POST /api/transactions — create (auto-save)
-// =====================================================
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
@@ -106,7 +102,6 @@ export async function POST(req: NextRequest) {
       invoiceId: body.invoiceId || null,
     };
 
-    // Auto-assign incomeType untuk INCOME berdasarkan category
     if (input.type === "INCOME" && !input.incomeType) {
       const cat = INCOME_CATEGORIES.find((c) => c.value === input.category);
       if (cat) input.incomeType = cat.incomeType;

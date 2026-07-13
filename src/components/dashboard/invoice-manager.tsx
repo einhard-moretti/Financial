@@ -344,9 +344,7 @@ export function InvoiceManager() {
   );
 }
 
-// =====================================================
 // Invoice Form (Add/Edit)
-// =====================================================
 function InvoiceForm({
   open,
   onOpenChange,

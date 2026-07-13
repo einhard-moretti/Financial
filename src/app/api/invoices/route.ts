@@ -2,10 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
 import { InvoiceInput, generateInvoiceNumber, getDaysUntil, CURRENCY_MAP } from "@/lib/constants";
 
-// =====================================================
 // GET /api/invoices
 // Query: status, overdue=now (auto-mark overdue), contactId
-// =====================================================
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url);
@@ -58,9 +56,7 @@ export async function GET(req: NextRequest) {
   }
 }
 
-// =====================================================
-// POST /api/invoices — create new
-// =====================================================
+// POST /api/invoices
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
